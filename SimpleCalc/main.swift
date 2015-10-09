@@ -95,31 +95,34 @@ func parseMultiOperandAndCalc(operand:[String]) -> Int {
 
 // ------------------- NO MORE METHODS PAST HERE -------------------------
 
-//part 1: simple calc
 print("Part 1: Enter an expression separated by returns:")
+var playAgain = true;
 
-var firstInp = input()
-let operand = input()
-var secondInp = input()
-
-if (firstInp.containsString(".") || secondInp.containsString(".")) { // deterimine if float or int
-    let x = convertFloat(firstInp)
-    let y = convertFloat(secondInp)
-    let result = parseOperandAndCalc(operand, x: x, y: y)
-    print("result: \(result)")
-} else {
-    let x = convertInt(firstInp)
-    let y = convertInt(secondInp)
-    let result = parseOperandAndCalc(operand, x: x, y: y)
-    print("result: \(result)")
+while playAgain {
+    var firstInp = input()
+    let digits = firstInp.componentsSeparatedByString(" ")
+    
+    if (digits.count > 1) {
+        let secondResult = parseMultiOperandAndCalc(digits)
+        print(secondResult)
+    } else {
+        let operand = input()
+        var secondInp = input()
+        if (firstInp.containsString(".") || secondInp.containsString(".")) { // deterimine if float or int
+            let x = convertFloat(firstInp)
+            let y = convertFloat(secondInp)
+            let result = parseOperandAndCalc(operand, x: x, y: y)
+            print("result: \(result)")
+        } else {
+            let x = convertInt(firstInp)
+            let y = convertInt(secondInp)
+            let result = parseOperandAndCalc(operand, x: x, y: y)
+            print("result: \(result)")
+        }
+    }
+    print("Play again? Enter y or n")
+    playAgain = input().containsString("y")
 }
-
-
-//part 2: multi-operand
-print("Part 2: Enter an expression separated by spaces then count, avg, or fact:")
-let digits = input().componentsSeparatedByString(" ")
-let secondResult = parseMultiOperandAndCalc(digits)
-print(secondResult)
 
 
 
